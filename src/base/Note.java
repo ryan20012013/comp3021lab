@@ -2,11 +2,17 @@ package base;
 
 import java.util.Objects;
 import java.util.Date;
+import java.util.*; 
 
-public class Note {
+public class Note implements Comparable<Note> {
 		
 		private	Date date;
 		private String title;
+		
+		@Override
+		public int compareTo(Note o) {
+			return o.date.compareTo(this.date);
+		}
 		
 		Note(String title) {
 			this.title = title;
@@ -23,19 +29,16 @@ public class Note {
 		}
 		@Override
 		public boolean equals(Object obj) {
-			//System.out.println("equal");
-			//System.out.println("04 Note Title: " + this.title + " and " + obj);
 			if (this == obj) {
-				//System.out.println("01");
 				return true;}
 			if (obj == null) {
-				//System.out.println("02");
 				return false;}
-			/*if (getClass() != obj.getClass()) {
-				System.out.println("03");
-				return false;}*/
 			Note other = (Note) obj;
 			return Objects.equals(title, other.title);
+		}
+		
+		public String toString() {
+			return date.toString() + "\t" + title ;
 		}
 }
 

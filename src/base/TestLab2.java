@@ -1,4 +1,4 @@
-package base;
+/*package base;
 
 public class TestLab2 {
 
@@ -40,4 +40,4 @@ public class TestLab2 {
 				System.out.println(f.toString());
 			}
 		}
-	}
+	}*/
