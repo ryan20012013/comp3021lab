@@ -60,6 +60,7 @@ public class NoteBook implements java.io.Serializable {
 	public boolean createTextNote(String folderName, String title, String content) {
 		TextNote note = new TextNote(title,content);
 		return insertNote(folderName,note);
+		
 	}
 	
 	public boolean createImageNote(String foldername, String title) {
