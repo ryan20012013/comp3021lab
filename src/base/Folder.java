@@ -26,17 +26,28 @@ public class Folder implements Comparable<Folder>, java.io.Serializable {
 		ArrayList<String> targetWord = new ArrayList<String>();
 		ArrayList<Note> result = new ArrayList<Note>();  
 		//System.out.println(word[0] + " | " + word[1] + " | " + word[2] + " | " );
-		
+		ArrayList<Integer> targetWord_check = new ArrayList<Integer>();
 		for(int i = 0; i< word.length;i++) {
 			if(word[i].equals("or") || word[i].equals("OR") ) {
-				targetWord.add(word[i-1].substring(0,1).toUpperCase() + word[i-1].substring(1).toLowerCase()  + " " + 
+				//targetWord.remove(targetWord.size()-1);
+				targetWord.set(targetWord.size()-1,targetWord.get(targetWord.size()-1)  + " " + 
 						word[i+1].substring(0,1).toUpperCase() + word[i+1].substring(1).toLowerCase() );
+				//targetWord_check.add(0);
 				i = i+1;
 				}
+			else {
+				targetWord.add(word[i].substring(0,1).toUpperCase() + word[i].substring(1).toLowerCase());
+				targetWord_check.add(0);
+			}
+		}System.out.println();
+		for(int i = 0; i< targetWord.size();i++) {
+			System.out.println(i +": " + targetWord.get(i) + "|");
 		}
 		for(int k = 0; k <this.notes.size();k++) {
-			int[] orList = {0,0};
-			//System.out.print("Title: " + this.notes.get(k).getTitle() + " |");
+			System.out.print("Title: " + this.notes.get(k).getTitle() + " |");
+			for(int i =0; i<targetWord_check.size();i++) {
+				targetWord_check.set(i, 0) ;
+			}
 			for(int j = 0; j <targetWord.size();j++) {	
 				word = targetWord.get(j).split(" ");
 				for(int z = 0; z < word.length; z++) {
@@ -44,20 +55,31 @@ public class Folder implements Comparable<Folder>, java.io.Serializable {
 					if(this.notes.get(k).getTitle().contains(word[z].toLowerCase()) ||
 							this.notes.get(k).getTitle().contains(word[z].toUpperCase()) || 
 							this.notes.get(k).getTitle().contains(word[z])) {
-						//System.out.print("  <== true  ");
-						orList[j] = 1;	
+						System.out.print("  <== true  " + "J =" + j);	
+						targetWord_check.set(j, 1);
 					}
 					if (this.notes.get(k) instanceof TextNote) {
 						if (((TextNote)this.notes.get(k)).content.contains(word[z].toLowerCase() )||
 								((TextNote)this.notes.get(k)).content.contains(word[z].toUpperCase() ) ||
 								((TextNote)this.notes.get(k)).content.contains(word[z] )) {
-							orList[j] = 1;
-							//System.out.print("  <== true  ");
+							System.out.print("  <== true  "+ "J =" + j);
+							targetWord_check.set(j, 1);
 						}}}
-				//System.out.println();
+				System.out.println();
 				}
-			if(orList[1] ==1 && orList[0] == 1) {
+			int flag = 0;
+			for(int i = 0; i< targetWord_check.size();i++) {
+				System.out.print("targetWord_check.get(i) "+targetWord_check.get(i));
+				if(targetWord_check.get(i) ==0) {
+					flag = 1;
+					break;
+				}
+			}
+			System.out.println();
+			System.out.print("Flag "+flag);
+			if(flag != 1) {
 				result.add(this.notes.get(k));
+				//System.out.println("^^^^^^" + this.notes.get(k).getTitle());
 			}
 		
 		}

@@ -77,6 +77,7 @@ public class NoteBook implements java.io.Serializable {
 				for(int k = 0; k <this.folders.size();k++) {
 						result.addAll(folders.get(k).searchNotes(keywords));
 					}
+		//System.out.print("You motherfucker");
 		return result;
 	}
 	
