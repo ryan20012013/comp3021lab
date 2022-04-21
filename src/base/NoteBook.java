@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
 
 public class NoteBook implements java.io.Serializable {
 	private ArrayList<Folder>  folders;
-	
+	public String filename;
 	private static final long serialVersionUID = 1L;
 	
 	public boolean save(String file) {
@@ -30,7 +30,13 @@ public class NoteBook implements java.io.Serializable {
 		folders = new ArrayList<Folder>();
 	}
 	
+	public void addFolder(String foldername) {
+		Folder folder = new Folder(foldername);
+		folders.add(folder);
+	}
+	
 	public NoteBook(String file) {
+		this.filename = file;
 		FileInputStream fis = null;
 		ObjectInputStream in = null;
 		try {
